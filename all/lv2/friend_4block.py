@@ -5,7 +5,7 @@ def findRect(m, n, board):
 		for col in range(n-1):
 			block = board[row][col]
 			if block == 'X':
-				break
+				continue
 			flg = True
 			for r, c in arounds:
 				if block != board[row+r][col+c]:
@@ -32,6 +32,7 @@ def downBlock(m, n, board, pts):
 		for r, c in arounds:
 			if row+r not in emptys[col+c]:
 				emptys[col+c].append(row+r)
+
 	for col in range(n):
 		for row in emptys[col]:
 			for i in range(0, row):
@@ -48,38 +49,57 @@ def solution(m, n, board):
 	pts = findRect(m, n, board)
 	while len(pts) > 0:
 		board, cnt = removeRect(m, n, board, pts)
-		print(board, cnt)
 		res += cnt
 		board = downBlock(m, n, board, pts)
 		pts = findRect(m, n, board)
-
-	print(board)
 
 	return res
 
 
 board1 = ["CCBDE", "AAADE", "AAABF", "CCBBF"]
 board2 = ["TTTANT", "RRFACC", "RRRFCC", "TRRRAA", "TTMMMF", "TMMTTJ"]
-print(solution(4, 5, board1)) # 14
+board3 = ["AAAAAA", "BBAATB", "BBAATB", "JJJTAA", "JJJTAA"]
+# print(solution(4, 5, board1)) # 14
 # print(solution(6, 6, board2)) # 15
+print(solution(5, 6, board3))
 
 # [['X', 'X', 'X', 'X', 'E'],
 #  ['X', 'X', 'X', 'X', 'E'],
 #  ['X', 'X', 'X', 'D', 'F'],
 #  ['X', 'X', 'X', 'D', 'F']]
 
-# CCBDE
-# AAADE
-# AAABF
-# CCBBF
+# AAAAAA
+# BBAATB
+# BBAATB
+# JJJTAA
+# JJJTAA
 
-# CCBDE
-# XXXDE
-# XXXBF
-# CCBBF	6
+# AAXXAA
+# XXXXTB
+# XXXXTB
+# XXXTXX
+# XXXTXX	20
 
-# XXXDE
-# XXXDE
-# CCBBF
-# CCBBF
+# XXXXXX
+# XXXXXX
+# XXXXAA
+# XXXTTB
+# AAXTTB
 
+# XXXXXX
+# XXXXXX
+# XXXXAA
+# XXXXBB
+# AAXXBB 	24
+
+# [['A', 'A', 'X', 'X', 'A', 'A'],
+#  ['X', 'X', 'X', 'X', 'T', 'B'],
+#  ['X', 'X', 'X', 'X', 'T', 'B'],
+#  ['X', 'X', 'X', 'T', 'X', 'X'],
+#  ['X', 'X', 'X', 'T', 'X', 'X']] 20
+
+[['X', 'X', 'X', 'X', 'X', 'X'],\
+ ['X', 'X', 'X', 'X', 'X', 'X'],\
+ ['X', 'X', 'X', 'X', 'A', 'A'],\
+ ['X', 'X', 'X', 'T', 'T', 'B'],\
+ ['A', 'A', 'X', 'T', 'T', 'B']]
